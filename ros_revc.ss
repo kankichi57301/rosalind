@@ -7,24 +7,22 @@
 (require "readfileA.ss")
 (require "roslibA.ss")
 ;;(require "roslibB.ss")
-(define *revc_out* "****_out.txt")
+(define *revc_out* "data\\revx_out.txt")
 
 (define (ros_revc . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_revc.txt"
-		    (format "rs_revc~a.txt" (car n)))))
+		    "data\\rosalind_revc.txt"
+		    (format "data\\rs_revc~a.txt" (car n)))))
+	 (res  '())
 	 )
-    (m-rc (car data))
-    #|
+    (set! res (m-rc (car data)))
+    
     (call-with-output-file *revc_out*
       (lambda(out)
-	(for-each (lambda(kmer)
-		    (display (format "~a " kmer) out))
-		  res))
+	(display res out))
       #:exists 'truncate/replace)
-    |#
-    
+    res
 ))
 
 

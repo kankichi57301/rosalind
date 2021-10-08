@@ -7,13 +7,13 @@
 (require "readfileA.ss")
 (require "roslibA.ss")
 ;;(require "roslibB.ss")
-(define *gc_out* "gc_out.txt")
+(define *gc_out* "data\\gc_out.txt")
 
 (define (ros_gc . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_gc.txt"
-		    (format "rs_gc~a.txt" (car n)))))
+		    "data\\rosalind_gc.txt"
+		    (format "data\\rs_gc~a.txt" (car n)))))
 	 (dnas (edit-fasta data))
 	 (names
 	  (map (lambda(s)(string-drop s 1))
@@ -22,7 +22,6 @@
 	 (res '())
 	 )
     (set! res (max-item  (zip names gc-ratios ) cadr))
-    
     
     (call-with-output-file *gc_out*
       (lambda(out)
