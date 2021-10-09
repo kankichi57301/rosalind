@@ -1,7 +1,7 @@
 #lang racket
 ;; rosalind
-;; 
-;; [HAMM] 20**/**/**
+;; Counting Point Mutations
+;; [HAMM] 2021/10/08
 ;(require srfi/1)
 (require srfi/13)
 (require "readfileA.ss")
@@ -12,19 +12,17 @@
 (define (ros_hamm . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_hamm.txt"
-		    (format "rs_hamm~a.txt" (car n)))))
+		    "data\\rosalind_hamm.txt"
+		    (format "data\\rs_hamm~a.txt" (car n)))))
+	 (res '())
 	 )
-    (apply hamming-dist-str data)
-    #|
+    (set! res (apply hamming-dist-str data))
+    
     (call-with-output-file *hamm_out*
       (lambda(out)
-	(for-each (lambda(kmer)
-		    (display (format "~a " kmer) out))
-		  res))
+	(display res out))
       #:exists 'truncate/replace)
-    |#
-    
+    res
 ))
 
 (define (hamming-dist lst1 lst2)
