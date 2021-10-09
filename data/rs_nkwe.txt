@@ -1,0 +1,2 @@
+"((cat:8,deep:9):15,(fox:7,(tiger:11,sheep:6):10):6,carp:12,(lion:13,dog:29):6);
+cat sheep

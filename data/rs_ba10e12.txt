@@ -1,0 +1,12 @@
+0.26
+--------
+A  C  G  T
+--------
+A--AG
+A-CGG
+AGCGG
+AG-GG
+ATCGG
+ATCGG
+ATCGG
+ATCGG

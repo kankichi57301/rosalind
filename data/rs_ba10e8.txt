@@ -1,0 +1,12 @@
+0.259
+--------
+A	B	C	D	E
+--------
+BCD-BE--C
+DCADBEB-C
+--D---CDC
+E-CEBE-DB
+DCD--D--A
+B-D-EECDC
+DC-D-E--D
+D-DDB-CD-

@@ -1,0 +1,5 @@
+rosalind 解答練習 by @kankichi57301  
+ros_[問題の略号2~4文字].ss (racket source)
+ros_[問題の略号2~4文字].c  (C source)
+data/rs_[問題の略号2~4文字][連番].txt データファイル
+data/[問題の略号2~4文字]_out.txt 出力  

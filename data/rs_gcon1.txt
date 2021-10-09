@@ -1,0 +1,4 @@
+>dara1
+ACDEACDE
+>data2
+ADACCE

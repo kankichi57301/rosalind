@@ -1,0 +1,6 @@
+>data01
+AACCGGG
+>data02
+TACCGGT
+>data03
+AAAACCGTAAA

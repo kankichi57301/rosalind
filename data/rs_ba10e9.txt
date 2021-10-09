@@ -1,0 +1,9 @@
+0.51
+--------
+A  C  G  T
+-------
+--GTAG
+--GT--
+--G-A-
+A-GCAG
+GAGCAG

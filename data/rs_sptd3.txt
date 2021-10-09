@@ -1,0 +1,3 @@
+rat dog cat rabbit elephant mouse
+(rat,(dog,cat),(rabbit,(elephant,mouse)));
+(rat,(dog,cat),(rabbit,(elephant,mouse)));

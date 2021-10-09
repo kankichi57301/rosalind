@@ -1,0 +1,9 @@
+0.21
+--------
+A  C  G  T
+--------
+A--AG
+A--GG
+A-CGG
+AGCGG
+ATCGG

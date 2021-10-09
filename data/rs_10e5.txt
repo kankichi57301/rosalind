@@ -1,0 +1,9 @@
+0.51
+--------
+A  C  G  T
+--------
+ACA---AT
+-CAACTAT
+-CAC--AG
+-CA---AT
+-CA---AT

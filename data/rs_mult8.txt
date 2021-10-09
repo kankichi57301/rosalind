@@ -1,0 +1,8 @@
+>Rosalind_5932
+GGCCCAGG
+>Rosalind_6151
+AACATAACAC
+>Rosalind_6720
+TCCTAGAGA
+>Rosalind_8918
+TCAGATGAG

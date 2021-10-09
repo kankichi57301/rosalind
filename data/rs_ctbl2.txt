@@ -1,0 +1,2 @@
+(aa,((baa,bab),bb,bc),(ca,(cb,cba,cbb),((cc,cca),(ccc,ccd))));
+

@@ -1,0 +1,2 @@
+7
+(lobster,(cat,dog),(caterpillar,(elephant,(mouse,xxx))));

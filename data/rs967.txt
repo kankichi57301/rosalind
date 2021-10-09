@@ -1,0 +1,2 @@
+( DEF ( ( DEC, ABC , XYZ ) ) )
+ABC DEF

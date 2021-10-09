@@ -1,0 +1,4 @@
+>line1
+ACDEACDE
+>line2
+ADEACDF

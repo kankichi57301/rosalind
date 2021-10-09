@@ -1,0 +1,8 @@
+>seq1
+ATATGC
+>seq2
+TTATGC
+>seq3
+ATGC
+>seq4
+AATGC
