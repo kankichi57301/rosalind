@@ -1,17 +1,18 @@
+#lang racket
 ;; rosalind
 ;; Implement MotifEnumeration
 ;; [BA2A] 2021/07/10 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "roslib.ss")
-(define *ba2a_out* "ba2a_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(define *ba2a_out* "data\\ba2a_out.txt")
 
 (define (ros_ba2a . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba2a.txt"
-		    (format "rs_ba2a~a.txt" (car n)))))
+		    "data\\rosalind_ba2a.txt"
+		    (format "data\\rs_ba2a~a.txt" (car n)))))
 	 (kd (string-tokenize (car data)))
 	 (k (string->number (car kd)))
 	 (d (string->number (cadr kd)))
