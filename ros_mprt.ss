@@ -37,17 +37,19 @@
 		    )))
 
 (define (load-prot protname)
-  (apply string-append (cdr (read-uniprot protname))))
-		   
-
+  (let ((content (read-uniprot protname)))
+    (if (empty? content)
+	""
+	(apply string-append (cdr content)))))
 
 (define (find-motif protain regexp len)
-  (map add1
-  (filter (lambda(x)
-	    (regexp-match regexp
-			  (substring protain x (+ x len))))
-	  (iota (- (string-length protain) len -1)))))
-
+  (if (< (string-length protain) len)
+      '()
+      (map add1
+	   (filter (lambda(x)
+		     (regexp-match regexp
+				   (substring protain x (+ x len))))
+		   (iota (- (string-length protain) len -1))))))
 
 (define (solve-mprt fasta-file out)
   (let* ((prot (load-prot fasta-file))
@@ -58,12 +60,6 @@
 	     (map (lambda(x) (display (format "~a " x) out)) numlist)
 	     (display "\n" out)
 	     ))))
-	  
-    
-  
- 
-
-
 
 (define *mprt_out* "data\\mprt_out.txt")
 
@@ -73,11 +69,11 @@
 		    "data\\rosalind_mprt.txt"
 		    (format "data\\rs_mprt~a.txt" (car n)))))
 	 )
-    
-    
     (call-with-output-file *mprt_out*
       (lambda(out)
 	(for-each (lambda(x)(solve-mprt x out))data))
       #:exists 'truncate/replace)
     #t
 ))
+
+
