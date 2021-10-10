@@ -16,16 +16,15 @@ How to execute
 (require "readfileA.ss")
 (require "roslibA.ss")
 
-(define *ba1b_out* "ba1b_out.txt")
-(define *tree* #f)
+(define *ba1b_out* "data\\ba1b_out.txt")
 (define myhash #f)
-(define tree '())
+
 
 (define (ros_ba1b . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1b.txt"
-		    (format "rs_ba1b~a.txt" (car n)))))
+		    "data\\rosalind_ba1b.txt"
+		    (format "data\\rs_ba1b~a.txt" (car n)))))
 	 (dna (car data))
 	 (k   (string->number (cadr data)))
 	 (res '())
