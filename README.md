@@ -1,4 +1,4 @@
--*-rosalind 解答練習 by @kankichi57301-*-
+-\*-rosalind 解答練習 by @kankichi57301-\*-  
 内容  
 ros_[問題の略号2\~4文字].ss (racket source)  
 ros_[問題の略号2\~4文字].c  (C source)  

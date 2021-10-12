@@ -7,14 +7,14 @@
 (require "readfileA.ss")
 (require "roslibA.ss")
 ;;(require "roslibB.ss")
-(define *kmer_out* "kmer_out.txt")
+(define *kmer_out* "data\\kmer_out.txt")
 (define myhash '()) 
 
 (define (ros_kmer . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_kmer.txt"
-		    (format "rs_kmer~a.txt" (car n)))))
+		    "data\\rosalind_kmer.txt"
+		    (format "data\\rs_kmer~a.txt" (car n)))))
 	 (res '())
 	 )
     (set! myhash (make-hash))
