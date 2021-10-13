@@ -1,16 +1,18 @@
+#lang racket
 ;; rosalind
 ;; Find Frequent Words with Mismatches and Reverse Complements
 ;; [BA1J] 2021/07/
-;(require srfi/1)
+;; 2021/10/13 AC
+(require srfi/1)
 (require srfi/13)
 (require srfi/19)
 
-(include "readfile.ss")
-(include "roslib.ss")
-(include "monoisotopic.ss")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(require "monoisotopicA.ss")
 
 (define *time* #f)
-(define *ba1j_out* "ba1j_out.txt")
+(define *ba1j_out* "data\\ba1j_out.txt")
 (define *dna* "")
 (define myhash '())
 (define myhash2 '())
@@ -18,8 +20,8 @@
 (define (ros_ba1j . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1j.txt"
-		    (format "rs_ba1j~a.txt" (car n)))))
+		    "data\\rosalind_ba1j.txt"
+		    (format "data\\rs_ba1j~a.txt" (car n)))))
 	 (dna (car data))
 	 (dnalen (string-length dna))
 	 (2ndline (string-tokenize (cadr data)))

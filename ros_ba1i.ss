@@ -1,17 +1,20 @@
+#lang racket
 ;; rosalind
 ;; Find the Most Frequent Words with Mismatches in a String
-;; [BA1I] 2021/07/10 AC 
+;; [BA1I] 2021/07/10 AC
+;; 2021/10/13 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(define *ba1i_out* "ba1i_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(define *ba1i_out* "data\\ba1i_out.txt")
 (define myhash '())
 
 (define (ros_ba1i . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1i.txt"
-		    (format "rs_ba1i~a.txt" (car n)))))
+		    "data\\rosalind_ba1i.txt"
+		    (format "data\\rs_ba1i~a.txt" (car n)))))
 	 (dna (car data))
 	 (2ndline (string-tokenize (cadr data)))
 	 (k (string->number (car  2ndline)))
@@ -47,6 +50,7 @@
 		    (display (format "~a " kmer) out))
 		  ans))
       #:exists 'truncate/replace)
+    ans
 ))
 
 	 

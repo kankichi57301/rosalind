@@ -1,16 +1,18 @@
+#lang racket
 ;; rosalind
 ;; Find a Position in a Genome Minimizing the Skew
-;; [BA1F] 2021/07/08 AC 
+;; [BA1F] 2021/07/08 AC
+;; 2021/10/13 AC 
 (require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(define *ba1f_out* "ba1f_out.txt")
+(require "readfileA.ss")
+(define *ba1f_out* "data\\ba1f_out.txt")
 
 (define (ros_ba1f . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1f.txt"
-		    (format "rs_ba1f~a.txt" (car n)))))
+		    "data\\rosalind_ba1f.txt"
+		    (format "data\\rs_ba1f~a.txt" (car n)))))
 	 (dna (string->list(car data)))
 	 (skewed (skew dna))
 	 (minval (apply min skewed))
@@ -24,7 +26,7 @@
 	       (display (format "~a " str) out))
 	     res))
 	  #:exists 'truncate/replace)
-
+	res
 	))
 
 (define (skew dnalist)

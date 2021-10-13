@@ -1,17 +1,19 @@
+#lang racket
 ;; rosalind
 ;; Generate the Frequency Array of a String
-;; [BA1K] 2021/07/09 AC 
+;; [BA1K] 2021/07/09 AC
+;; 2021/10/13 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "roslib.ss")
-(define *ba1k_out* "ba1k_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(define *ba1k_out* "data\\ba1k_out.txt")
 
 (define (ros_ba1k . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1k.txt"
-		    (format "rs_ba1k~a.txt" (car n)))))
+		    "data\\rosalind_ba1k.txt"
+		    (format "data\\rs_ba1k~a.txt" (car n)))))
 	 (dna (car data))
 	 (k  (string->number(cadr data)))
 	 (kmers (k-mers dna k))

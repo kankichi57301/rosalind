@@ -1,18 +1,20 @@
+#lang racket
 ;; rosalind
 ;; Find All Approximate Occurrences of a Pattern in a String
-;; [BA1H] 2021/07/08 AC 
+;; [BA1H] 2021/07/08 AC
+;; 2021/10/13 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "roslib.ss")
-(define *ba1h_out* "ba1h_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(define *ba1h_out* "data\\ba1h_out.txt")
 (define res '())
 
 (define (ros_ba1h . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1h.txt"
-		    (format "rs_ba1h~a.txt" (car n)))))
+		    "data\\rosalind_ba1h.txt"
+		    (format "data\\rs_ba1h~a.txt" (car n)))))
 	 (pat (car data))
 	 (str (cadr data))
 	 (d (string->number(caddr data)))
@@ -43,7 +45,7 @@
 		    (display (format "~a " n) out))
 		  (reverse res)))
       #:exists 'truncate/replace)
-    #t
+    (reverse res)
 ))
 
 	 
