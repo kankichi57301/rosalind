@@ -1,18 +1,19 @@
+#lang racket
 ;; rosalind
 ;; Find a Median String
 ;; [BA2B] 2021/07/11 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "roslib.ss")
-(include "readfile.ss")
-(define *ba2b_out* "ba2b_out.txt")
+(require "roslibA.ss")
+(require "readfileA.ss")
+(define *ba2b_out* "data\\ba2b_out.txt")
 (define *dnas* '())
 
 (define (ros_ba2b . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba2b.txt"
-		    (format "rs_ba2b~a.txt" (car n)))))
+		    "data\\rosalind_ba2b.txt"
+		    (format "data\\rs_ba2b~a.txt" (car n)))))
 	 (k (string->number (car data)))
 	 (dnas (map string->list (cdr data)))
 	 (len (string-length (cadr data)))
@@ -22,19 +23,15 @@
 				  cadr))))
 	 )
 
-    (displayln res)
-    #|
-    (call-with-output-file *maj_out*
+    (call-with-output-file *ba2b_out*
       (lambda(out)
-	(display data out))
+	(display res out))
       #:exists 'truncate/replace)
-    |#
-    #t
+    
+    res
  ))
 
 ;; --*--
-(ros_ba2b 1)
-
 (define (min-ham-dist lst pat)
   (min-ham-dist0 lst pat (length lst) (length pat)))
 

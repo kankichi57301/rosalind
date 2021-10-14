@@ -396,7 +396,9 @@
   (let ((r (reverse lst)))
     (reverse
      (maplist (lambda(x)(func (reverse x))) r))))
-;; bunruiにしたがって xlistの内容を分類、カウント
+
+(define (log10 x)
+  (/ (log x)(log 10)))
 
 )
 	 

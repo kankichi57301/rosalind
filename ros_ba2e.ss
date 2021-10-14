@@ -1,36 +1,31 @@
+#lang racket
 ;; rosalind
 ;; Implement GreedyMotifSearch with Pseudocounts
 ;; [BA2E] 2021/07/17 AC
-;(require srfi/1)
+;; 2012/10/14 AC
+(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "roslib.ss")
-(define *ba2e_out* "ba2e_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(require "greedymotifA.ss")
+(define *ba2e_out* "data\\ba2e_out.txt")
 
 (define *DEBUG* #f)
-(define dnas-str "")
-(define n 0)
-(define len 0)
-(define k 0)
 
 (define (ros_ba2e . arg)
   (let* ((data (read-file*
 		(if (null? arg)
-		    "rosalind_ba2e.txt"
-		    (format "rs_ba2e~a.txt" (car arg)))))
+		    "data\\rosalind_ba2e.txt"
+		    (format "data\\rs_ba2e~a.txt" (car arg)))))
 	 (1st-line (map string->number(string-tokenize (car data))))
-	 (rest (cdr data))
+	 (dnas-str (cdr data))
 	 (res '())
-	)
-    
-    (set! n (cadr 1st-line))
-    (set! k (car 1st-line))
-    (set! dnas-str rest)
-    (set! len (string-length (car dnas-str)))
+	 (n (cadr 1st-line))
+	 (k (car 1st-line))
+	 (len (string-length (car dnas-str)))
+	 )
 
-    (set! res (map (lambda(x)(apply string x))(greedy-motif-search (map string->list dnas-str))))
-    
-    
+    (set! res (map (lambda(x)(apply string x))(greedy-motif-search-pseudo-count (map string->list dnas-str) n k)))
     
     (call-with-output-file *ba2e_out*
       (lambda(out)
@@ -44,13 +39,13 @@
 
 
 
-(define (greedy-motif-search dnacharlists)
+(define (greedy-motif-search-pseudo-count dnacharlists n k)
   (let* ((kmer '())
 	 (prob-mat '())
 	 (best (map (lambda(dna)(take dna k))dnacharlists))
 	 (score (score-motif-matrix best))
+	 (len (length (car dnacharlists)))
 	 )
-    
     
     (for-each (lambda(pos)
 		(set! kmer (take (drop (car dnacharlists) pos) k))
