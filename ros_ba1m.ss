@@ -1,18 +1,19 @@
+#lang racket
 ;; rosalind
 ;; Implement NumberToPattern
 ;; [BA1M] 2021/07/06 AC 
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(define *ba1m_out* "ba1m_out.txt")
+(require "readfileA.ss")
+(define *ba1m_out* "data\\ba1m_out.txt")
 
 (define nuc "ACGT")
 
 (define (ros_ba1m . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba1m.txt"
-		    (format "rs_ba1m~a.txt" (car n)))))
+		    "data\\rosalind_ba1m.txt"
+		    (format "data\\rs_ba1m~a.txt" (car n)))))
 	 (index (string->number (car data)))
 	 (k     (string->number (cadr data)))
        )

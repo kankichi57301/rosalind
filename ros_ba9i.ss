@@ -8,23 +8,24 @@
 ;;(require "roslibA.ss")
 ;;(require "roslibB.ss")
 
-(define *ba9i_out* "ba9i_out.txt")
+(define *ba9i_out* "data\\ba9i_out.txt")
 (define my-tree '())
 
 (define (ros_ba9i . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba9i.txt"
-		    (format "rs_ba9i~a.txt" (car n)))))
+		    "data\\rosalind_ba9i.txt"
+		    (format "data\\rs_ba9i~a.txt" (car n)))))
+	 (res (bwt (car data)))
 	 )
     
     
     (call-with-output-file *ba9i_out*
       (lambda(out)
-	(displayln (bwt (car data)) out))
+	(displayln res  out))
       #:exists 'truncate/replace)
     
-    #t
+    res
     
     ))
 
