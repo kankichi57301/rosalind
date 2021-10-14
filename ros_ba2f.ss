@@ -2,11 +2,12 @@
 ;; rosalind
 ;; Implement RandomMotifSearch 
 ;; [BA2F] 2021/09/17 AC
+;; 2012/10/14 AC
 (require srfi/1)
 (require srfi/13)
 (require "readfileA.ss")
 (require "roslibA.ss")
-(define *ba2f_out* "ba2f_out.txt")
+(define *ba2f_out* "data\\ba2f_out.txt")
 (define *pseudo-count* 1)
 
 (define *DEBUG* #t)
@@ -19,8 +20,8 @@
 (define (ros_ba2f . arg)
   (let* ((data (read-file*
 		(if (null? arg)
-		    "rosalind_ba2f.txt"
-		    (format "rs_ba2f~a.txt" (car arg)))))
+		    "data\\rosalind_ba2f.txt"
+		    (format "data\\rs_ba2f~a.txt" (car arg)))))
 	 (1st-line (map string->number(string-tokenize (car data))))
 	 (dnas (cdr data))
 	 (res '())
