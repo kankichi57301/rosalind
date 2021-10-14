@@ -1,18 +1,20 @@
+#lang racket
 ;; rosalind
 ;; Implement DistanceBetweenPatternAndStrings
 ;; [BA2H] 2021/07/11 AC
+;; 2012/10/14 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "roslib.ss")
-(include "readfile.ss")
-(define *ba2h_out* "ba2h_out.txt")
+(require "roslibA.ss")
+(require "readfileA.ss")
+(define *ba2h_out* "data\\ba2h_out.txt")
 (define *dnas* '())
 
 (define (ros_ba2h . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba2h.txt"
-		    (format "rs_ba2h~a.txt" (car n)))))
+		    "data\\rosalind_ba2h.txt"
+		    (format "data\\rs_ba2h~a.txt" (car n)))))
 
 	 (pat  (string->list (car data)))
 	 (dnas  (map string->list (string-tokenize (cadr data))))
