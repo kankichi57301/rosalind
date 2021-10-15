@@ -6,6 +6,8 @@
 (require srfi/13)
 (require srfi/14)
 
+(define fl-pat #rx"[0-9]*[.][0-9]+")
+
 (define (add-group groupset item pred)
 
   ;;(displayln (format "arg=~s ,~s" groupset item))
@@ -361,8 +363,8 @@
 
 ;;
 ;; parse "1->2,3" or "4->5"
-;;
-
+;; 2021/10/15 C³
+#|
 (define (parse-adj-list str)
   (let* ((parsed (regexp-match #rx"([0-9]+) -> ([0-9]+(,[0-9]+)*)" str))
 	 (src (string->number (cadr parsed)))
@@ -373,6 +375,13 @@
     graphs
     ;arc
     ))
+|#
+(define (parse-adj-list str)
+  (let* ((parsed (regexp-match #rx"([0-9]+) -> ([0-9]+(,[0-9]+)*)" str))
+	 (arc (list (string->number (cadr parsed))
+		    (map string->number (string-tokenize (caddr parsed) char-set:digit)))))
+
+    arc))
 
 (define (list-span list from to)
   (take (drop list from) (+ 1(- to from))))

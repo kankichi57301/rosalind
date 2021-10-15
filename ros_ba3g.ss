@@ -1,19 +1,21 @@
+#lang racket
 ;; rosalind
 ;; Find an Eulerian Path in a Graph 
 ;; [BA3G] 2021/07/27 AC
+;; 2021/10/15 AC
 ;(require srfi/1)
 (require srfi/13)
 (require srfi/14)
-(include "readfile.ss")
-(include "roslib.ss")
-(include "roslib2.ss")
-(define *ba3g_out* "ba3g_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(require "roslibB.ss")
+(define *ba3g_out* "data\\ba3g_out.txt")
 
 (define (ros_ba3g . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba3g.txt"
-		    (format "rs_ba3g~a.txt" (car n)))))
+		    "data\\rosalind_ba3g.txt"
+		    (format "data\\rs_ba3g~a.txt" (car n)))))
 	 )
 
       (call-with-output-file *ba3g_out*

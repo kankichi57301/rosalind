@@ -1,21 +1,24 @@
+#lang racket
 ;; rosalind
 ;; Find an Eulerian Cycle in a Graph 
 ;; [BA3F] 2021/07/27 AC
 ;(require srfi/1)
 (require srfi/13)
 (require srfi/14)
-(include "readfile.ss")
-(include "roslib.ss")
-(include "roslib2.ss")
-(define *ba3f_out* "ba3f_out.txt")
+(require "readfileA.ss")
+(require "roslibA.ss")
+(require (only-in "roslibB.ss" find-first))
+(define *ba3f_out* "data\\ba3f_out.txt")
+(define *dat* '())
 
 (define (ros_ba3f . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba3f.txt"
-		    (format "rs_ba3f~a.txt" (car n)))))
+		    "data\\rosalind_ba3f.txt"
+		    (format "data\\rs_ba3f~a.txt" (car n)))))
 	 )
-
+    (set! *dat* data)
+    (solve-ba3f data)
     
     
     (call-with-output-file *ba3f_out*
@@ -23,6 +26,7 @@
 	(displayln (solve-ba3f data) out))
       #:exists 'truncate/replace)
     #t
+    
 ))
 
 (define (solve-ba3f str)
@@ -30,10 +34,10 @@
 		   (map parse-adj-list str)))
 	(res '())
     )
-    (displayln (format "#ofEdge=~a" (length adj-list)))
+    ;;(displayln (format "#ofEdge=~a" (length adj-list)))
     (set! res
 	  (find-cycle adj-list))
-    (displayln (format "#ofEdge=~a" (length res)))
+    ;;(displayln (format "#ofEdge=~a" (length res)))
     (string-join
      (map number->string res)
      "->"
@@ -84,4 +88,6 @@
 	    ;(displayln (format "next=~a:rest=~a" nextloop rest))
 	    ;(displayln (format "marged=~a" (splice-loop acc nextloop)))
 	    (find-cycle1 rest (splice-loop acc nextloop))
-		   )))))
+	    )))))
+
+;(ros_ba3f 1)
