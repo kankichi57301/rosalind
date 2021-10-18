@@ -2,6 +2,7 @@
 ;; rosalind
 ;; Reconstruct a String from its Paired Composition
 ;; [BA3J] 2021/10/05
+;; 2012/10/17 C
 (require srfi/1)
 (require srfi/13)
 (require srfi/19)
@@ -11,13 +12,13 @@
 (require "roslibC.ss")
 
 (define *time* #f)
-(define *ba3j_out* "ba3j_out.txt")
+(define *ba3j_out* "data\\ba3j_out.txt")
 
 (define (ros_ba3j . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba3j.txt"
-		    (format "rs_ba3j~a.txt" (car n)))))
+		    "data\\rosalind_ba3j.txt"
+		    (format "data\\rs_ba3j~a.txt" (car n)))))
 	 (1st-line (string-tokenize(car data)))
 	 (k (string->number (car 1st-line)))
 	 (d (string->number (cadr 1st-line)))
@@ -34,7 +35,7 @@
       (lambda(out)
 	(displayln ans out))
       #:exists 'truncate/replace)
-    #t
+    ans
 ))
 
 (define aaa '(

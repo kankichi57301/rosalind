@@ -1,18 +1,20 @@
+#lang racket
 ;; rosalind
 ;; Compute the Score of a Cyclic Peptide Against a Spectrum
 ;; [BA4F] 2021/08/02 AC
+;; 2021/10/18 AC
 ;(require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "roslib2.ss")
-(include "monoisotopic.ss")
-(define *ba4f_out* "ba4f_out.txt")
+(require "readfileA.ss")
+(require "roslibB.ss")
+(require "monoisotopicA.ss")
+(define *ba4f_out* "data\\ba4f_out.txt")
 
 (define (ros_ba4f . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba4f.txt"
-		    (format "rs_ba4f~a.txt" (car n)))))
+		    "data\\rosalind_ba4f.txt"
+		    (format "data\\rs_ba4f~a.txt" (car n)))))
 	 (peptide (car data))
 	 (spect (map string->number (string-tokenize (cadr data))))
 	 

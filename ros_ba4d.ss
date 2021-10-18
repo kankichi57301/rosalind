@@ -1,19 +1,20 @@
+#lang racket
 ;; rosalind
 ;; Compute the Number of Peptides of Given Total Mass
 ;; [BA4D] 2021/07/21 AC
 (require srfi/1)
 (require srfi/13)
-(include "readfile.ss")
-(include "monoisotopic.ss")
-(include "roslib.ss")
+(require "readfileA.ss")
+(require "monoisotopicA.ss")
+(require "roslibA.ss")
 (define myhash #f)
-(define *ba4d_out* "ba4d_out.txt")
+(define *ba4d_out* "data\\ba4d_out.txt")
 
 (define (ros_ba4d . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba4d.txt"
-		    (format "rs_ba4d~a.txt" (car n)))))
+		    "data\\rosalind_ba4d.txt"
+		    (format "data\\rs_ba4d~a.txt" (car n)))))
 	 (res 0)
 	 )
     

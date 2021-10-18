@@ -7,14 +7,14 @@
 (require srfi/14)
 (require "readfileA.ss")
 (require "roslibA.ss")
-(define *ba3m_out* "ba3m_out.txt")
+(define *ba3m_out* "data\\ba3m_out.txt")
 (define *ans* '())
 
 (define (ros_ba3m . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba3m.txt"
-		    (format "rs_ba3m~a.txt" (car n)))))
+		    "data\\rosalind_ba3m.txt"
+		    (format "data\\rs_ba3m~a.txt" (car n)))))
 	 (adjlist(append-map parse-adj-list data))
 	 (all-nodes (delete-duplicates (flatten adjlist)))
 	 (in-out (in-out-count adjlist all-nodes))
