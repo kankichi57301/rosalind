@@ -1,8 +1,10 @@
 /*
 Rosalind
 Maximizing the Gap Symbols of an Optimal Alignment
+racket‚¾‚Æ’x‚¢‰½‚Å‚¾‚ë‚¤
 [MGAP]
 2021/03/04 AC
+2021/10/21@AC
  */
 #include <stdio.h>
 #include <string.h>
