@@ -1,6 +1,6 @@
 (module rosalind racket/base
 	(provide (all-defined-out))
-	(require (only-in "roslibA.ss" m-rc runsum))
+	(require (only-in "roslibA.ss" m-rc runsum delete-once))
 	(require (only-in racket/list remove-duplicates range group-by cartesian-product ))
 	(require (only-in racket/set set-intersect))
 	(require (only-in racket/function identity))
@@ -84,6 +84,7 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 (define all-amino-weights (sort ( remove-duplicates (map (lambda(x)(inexact->exact (floor (cadr x))))
 							 monoiso-mass))
 				<))
+(define amw all-amino-weights)
 (define all-amino-weights-dummy (append '(4 5) all-amino-weights ))  						   
 
 (define (peptide-weight str)
@@ -374,6 +375,29 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 			monoiso-mass-int-dummy)))
 	  (cdr (assoc amino table))))
 
+;;--*-- make test data --*--
+(define (make-ba4e-testdata0 dbl len times)
+  (map (lambda(x)(apply + (take (drop dbl x) len)))
+       (iota times)))
 
+(define (make-ba4e-testdata nlist)
+  (let ((dbl (append nlist nlist))
+	(len (length nlist)))
+    (cons 0
+	  (append
+	   (sort
+	    (append-map (lambda(x)(make-ba4e-testdata0 dbl x len))
+			(iota (- len 1) 1))
+	    <)
+	   (list (apply + nlist))))
+  ))
+
+(define (mass-score nlist1 nlist2)
+  (if (null? nlist1)
+      0
+      (if (member (car nlist1) nlist2)
+	  (+ 1 (mass-score (cdr nlist1)(delete-once (car nlist1) nlist2)))
+	  (mass-score (cdr nlist1) nlist2))))
+;;--*-- end of roslibA.ss --*--  
 )
 
