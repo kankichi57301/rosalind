@@ -6,10 +6,12 @@ Finding All Similar Motifs
  */
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #define min(x,y) (((x)<(y))?(x):(y))
 #define min3(x,y,z) min(x,(min(y,z)))
 //#define DUMP  1
 //#define DEBUG 1
+#define COUNTSTATE  1
 short dp[5001][50001];
 char  tb[5001][50001];
 char  hash[5000000];
@@ -55,7 +57,7 @@ void fill_dp(char str1[],char str2[],int len1,int len2)
     {
 #ifdef COUNTSTATE      
       if((y % 1000)==0)
-	printf("%d\n",y);
+	fprintf(stderr,"%d\n",y);
 #endif
       for(x=1;x<=len1;x++)
       {
@@ -218,6 +220,10 @@ int hash_exist(int s,int len)
 
 int main()
 {
+  char buff[128]="";
+  time_t now;
+  struct tm * pnow;
+  
   scanf("%d",&k);
   scanf("%s",motif);
   scanf("%s",dna);
@@ -225,7 +231,20 @@ int main()
   len2=strlen(dna);
   //printf("len1=%d len2=%d\n",len1,len2);
   ans_cnt=0;
+  now = time(NULL);
+  pnow = localtime(&now);
+  sprintf(buff,"stt=%d:%d:%d\n",pnow->tm_hour,pnow->tm_min,pnow->tm_sec);
+  fprintf(stderr,buff);
+
   solve(motif,dna);
+
+  now = time(NULL);
+  pnow = localtime(&now);
+  sprintf(buff,"end=%d:%d:%d\n",pnow->tm_hour,pnow->tm_min,pnow->tm_sec);
+  fprintf(stderr,buff);
+
+  
+  
 #ifdef COUNT      
   printf("count=%d\n",ans_cnt);
 #endif    

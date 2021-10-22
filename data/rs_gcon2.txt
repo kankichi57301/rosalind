@@ -1,4 +1,4 @@
->data1
-KSPRA
+>dara1
+ACDEACDE
 >data2
-WGTA
+ADACCE

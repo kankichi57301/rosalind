@@ -1,4 +1,4 @@
->seq1
-EAAAACCCCF
->seq2
-EACF
+>Rosalind_78
+PLEASANTLY
+>Rosalind_33
+MEANLY

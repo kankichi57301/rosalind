@@ -1,1 +1,1 @@
-(aa,(cc,(dd,dd1)),(ee,(ff,(fff,fffx))));
+(dog,((elephant,mouse),robot),cat);

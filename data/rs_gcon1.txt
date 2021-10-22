@@ -1,4 +1,4 @@
->dara1
-ACDEACDE
->data2
-ADACCE
+>Rosalind_79
+PLEASANTLY
+>Rosalind_41
+MEANLY
