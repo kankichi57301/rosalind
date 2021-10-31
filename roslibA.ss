@@ -120,18 +120,26 @@
 (define (string-section str from to)
   (string-take (string-drop str from)(- to from)))
 
+;; lst‚©‚çx‚ğ1‰ñ‚¾‚¯Á‹‚·‚é.
 (define (delete-once x lst)
   (if (null? lst)
       '()
       (if (equal? (car lst) x)
 	  (cdr lst)
 	  (cons (car lst)(delete-once x (cdr lst))))))
-
+;;all‚©‚çset‚ğæ‚èœ‚¢‚½W‡‚ğ•Ô‚·
 (define (exclude set all)
   (if (null? set)
       all
       (exclude (cdr set)(delete-once (car set) all))))
 
+;;
+;; inclusive-or
+;; 2021/10/20
+;;
+(define (union* lst1 lst2)
+  (append lst1 (exclude lst1 lst2)))
+  
 
 (define (near=? x y)
   (< (abs (- x y)) 0.01))
@@ -252,6 +260,7 @@
 
 
 (define all-enki '(#\A #\C #\G #\T))
+(define all-enki5 '(#\A #\C #\G #\T #\-))  ;; 2021/10/30 add gap
 
 (define (all-combi0 lst d acc hash)
   ;(displayln (format "arg=~a acc=~a" lst acc))
@@ -353,6 +362,7 @@
 (define (hash-append! hash key item)
   (hash-set! hash key (append (hash-ref hash key '()) (list item))))
 ;; triange-number => number
+;; OŠp”„Œ³
 (define (tri-num->num n)
   (/ ( + 1 (sqrt (+ 1 (* 8 n)))) 2))
 ;; common lisp‚Ìmaplist@‚½‚¾‚µ lst‚Í‚P‚Â‚¾‚¯ func‚Í‚Pˆø”‚Ì‚İ
@@ -408,6 +418,7 @@
 
 (define (log10 x)
   (/ (log x)(log 10)))
+
 
 )
 	 
