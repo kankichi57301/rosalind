@@ -1,7 +1,7 @@
 #lang racket
 ;; rosalind
 ;; Construct a String Spelled by a Gapped Genome Path
-;; [BA3L] 2021/10/05
+;; [BA3L] 2021/11/02 AC 
 (require srfi/1)
 (require srfi/13)
 ;(require srfi/19)
@@ -11,13 +11,13 @@
 (require "roslibC.ss")
 
 (define *time* #f)
-(define *ba3l_out* "ba3l_out.txt")
+(define *ba3l_out* "data\\ba3l_out.txt")
 
-(define (ros_ba3j . n)
+(define (ros_ba3l . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba3l.txt"
-		    (format "rs_ba3l~a.txt" (car n)))))
+		    "data\\rosalind_ba3l.txt"
+		    (format "data\\rs_ba3l~a.txt" (car n)))))
 	 (1st-line (string-tokenize(car data)))
 	 (k (string->number (car 1st-line)))
 	 (d (string->number (cadr 1st-line)))
@@ -25,17 +25,13 @@
 	 (ans "")
 	 )
     
-    
-    ;(set! *time* (current-time))
-    ;(set! ans (merge-all kdks))
-    ;(displayln (format "elapsed =~a sec" (time-second (time-difference (current-time) *time*))))
-    #|
+    (set! ans (merge-all kdks))
+
     (call-with-output-file *ba3l_out*
       (lambda(out)
-	(displayln ans out))
+	(display ans out))
       #:exists 'truncate/replace)
-    |#
-    kdks
+    ans
 ))
 
 
