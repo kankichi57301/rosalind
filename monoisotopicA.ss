@@ -390,14 +390,21 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 			(iota (- len 1) 1))
 	    <)
 	   (list (apply + nlist))))
-  ))
+    ))
+
+(define (all-circular-weight nlist)
+  (make-ba4e-testdata nlist))
 
 (define (mass-score nlist1 nlist2)
+      (let ((circular (all-circular-weight nlist1)))
+	(mass-score0 circular nlist2)))
+	
+(define (mass-score0 nlist1 nlist2)
   (if (null? nlist1)
       0
       (if (member (car nlist1) nlist2)
-	  (+ 1 (mass-score (cdr nlist1)(delete-once (car nlist1) nlist2)))
-	  (mass-score (cdr nlist1) nlist2))))
+	  (+ 1 (mass-score0 (cdr nlist1)(delete-once (car nlist1) nlist2)))   ;; 2021/11/04 mass-score =? mass-score0
+	  (mass-score0 (cdr nlist1) nlist2))))
 ;;--*-- end of roslibA.ss --*--  
 )
 
