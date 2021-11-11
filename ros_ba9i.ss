@@ -2,9 +2,11 @@
 ;; rosalind
 ;; Construct the Burrows-Wheeler Transform of a String
 ;; [BA9I] 2021/09/14 AC
+;; 2021/11/11 AC モジュール構成変更
 (require srfi/1)
 (require srfi/13)
 (require "readfileA.ss")
+(require "bwtA.ss")
 ;;(require "roslibA.ss")
 ;;(require "roslibB.ss")
 
@@ -24,9 +26,7 @@
       (lambda(out)
 	(displayln res  out))
       #:exists 'truncate/replace)
-    
     res
-    
     ))
 
 
@@ -48,17 +48,6 @@
     (map (lambda(str)(- len (string-length str)))
 	 (suffix-array0 str))))
 
-;;filename:bwt.ss
-;;Burrows-Wheeler Transform
-;;
+		
+	      
 
-(define (all-rot str)
-  (map (lambda(n)(rot-str str n))(iota (string-length str))))
-
-(define (rot-str str n)
-  (string-append (string-drop str n)(string-take str n))) 
-
-(define (bwt str)
-  (apply string-append
-	 (map (lambda(s)(string-take-right s 1))
-	      (sort (all-rot str) string<?))))
