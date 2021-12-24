@@ -1,0 +1,13 @@
+((tiger,lion)ostrich,(fox,((bison1,bison2)bison,puma)mouse)dog)rat;
+>tiger
+ACG
+>lion
+TCT
+>fox
+ACT
+>bison1
+AGG
+>bison2
+ATG
+>puma
+TGG
