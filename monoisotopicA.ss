@@ -71,7 +71,7 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 ;; imaginary amino acids X and Z =4,5
 ;;
 (define monoiso-mass-int-dummy (append  monoiso-mass-int '((#\X . 4)(#\Z . 5))))
-
+(define amw3 monoiso-mass-int-dummy)
 
 (define (weight-int->amino w)
   (let ((it (find-first (lambda(x)(= w (cdr x)))
@@ -86,6 +86,15 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 				<))
 (define amw all-amino-weights)
 (define all-amino-weights-dummy (append '(4 5) all-amino-weights ))  						   
+(define amw2 all-amino-weights-dummy)
+;;本番用
+
+(define amw4 (sort (map (lambda(x)(inexact->exact (floor (cadr x))))
+							 monoiso-mass)
+		   <))
+
+;; 例題専用 dummy data X & Z (weight 4 & 5) 
+;(define amw4 '(4 5))
 
 (define (peptide-weight str)
   (round5
@@ -333,7 +342,7 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 ;;
 
 
-
+; spect = *spect*
 (define (peptide-score spect amino . flag)
   (let* ((table (if (or (null? flag)(not (car flag)))
 		  monoiso-mass-int
@@ -406,5 +415,17 @@ Z	Glx	グルタミン酸またはグルタミン (5)
 	  (+ 1 (mass-score0 (cdr nlist1)(delete-once (car nlist1) nlist2)))   ;; 2021/11/04 mass-score =? mass-score0
 	  (mass-score0 (cdr nlist1) nlist2))))
 ;;--*-- end of roslibA.ss --*--  
-)
 
+#|
+(define (pep-score peptide-str spect)
+  (pep-score0 (string->list peptide-str) spect))
+
+(define (pep-score0 peptide-charlist spect)
+  (if (null? peptide-charlist)
+      0
+      (let ((wt  (cdr (- (assoc (car pep-charlist) monoiso-mass-int-dummy) 1))))
+	(if (> wt (length spect))
+	    '()
+	    (cons (list-ref spect wt) (pep-score0 (cdr peptide-charlist)(drop spect wt)))))))
+|#		      
+)

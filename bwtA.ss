@@ -64,15 +64,17 @@
 	(inv-bwt0 fst last (car p2)(cadr p2)(cons (car p2) acc)(- cnt 1))
       )))
 
-;;
+;;重複した要素のあるリストのN番目（０ベース）の要素と、そのリスト中の同一要素の何番目（１ベース）かを返す
 ;;             0 1 V 3 4 5
 ;; (find-pos '(1 2 1 3 1 2) 2) =>
 ;; '(1 2)
-;; (1base)
+;; この場合（Vで示す）２番目（０ベース）の要素は１でこの１は左から２番目なので(1 2)を返す
 (define (find-pos lst pos)
   (let ((ans (list-ref lst pos)))
     (list ans (+ 1 (count (lambda(x)(= x ans))(take lst pos))))))
-
+;;
+;;重複した要素のあるリストでvalと一致する要素うちのnth番目のやつのindexを返す。
+;;
 (define (find-nth-pos lst val nth)
   (find-nth-pos0 lst val nth 0))
   
