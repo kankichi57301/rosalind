@@ -75,11 +75,11 @@
   (if (empty? graph)
       acc
       (let*-values ([(findarc nextnode)(my-assoc next graph)]
-		    [(restgraph) (delete findarc graph)])
+		    [(restgraph) (delete-once findarc graph)])
 	     
 	(if (= start nextnode)
-	    (calc-cycles0 (delete findarc graph) (+ 1 acc) (my-caar restgraph) (my-caar restgraph))
-	    (calc-cycles0 (delete findarc graph) acc       nextnode        start         )
+	    (calc-cycles0 (delete-once findarc graph) (+ 1 acc) (my-caar restgraph) (my-caar restgraph))
+	    (calc-cycles0 (delete-once findarc graph) acc       nextnode        start         )
 	    ))))
   
 
@@ -91,4 +91,15 @@
 	(let ((it2 (find-first (lambda(x)(equal? (cadr x) val)) pairlist)))
 	  (if it2
 	      (values it2 (car it2))
-	      #f)))))
+	      (values '() '())
+	      )))))
+
+(define (2break-dist nlist1 nlist2)
+  ;(- (length nlist1)
+  (calc-cycles
+      (append (cycle->num nlist1)
+	      (cycle->num nlist2)))
+;  )
+)
+
+(2break-dist '(1 2 3 4) '(1 2 3 4))
