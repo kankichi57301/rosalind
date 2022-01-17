@@ -419,6 +419,26 @@
 (define (log10 x)
   (/ (log x)(log 10)))
 
+(define (pair= pair1 pair2)
+  (or (equal? pair1 pair2)
+      (equal? pair1 (cons (cadr pair2)(list (car pair2))))))
+
+
+(define (synt->num0 num)
+  `(,(- (* 2 num) 1) ,(* 2 num)))
+
+(define (synt->num1 num)
+  (if (> num 0)
+      (synt->num0 num)
+      (reverse (synt->num0 (- num)))))
+
+
+(define (cycle->num numlist)
+  (let ((nums (append-map synt->num1 numlist)))
+    (group-per
+     (cons (car (take-right nums 1))(drop-right nums 1))
+     2)
+     ))
 
 )
 	 
