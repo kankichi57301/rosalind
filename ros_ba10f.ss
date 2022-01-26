@@ -11,7 +11,7 @@
 (require "monoisotopicA.ss")
 (define *DEBUG* #f)
 (define *FILE_OUT* #f)
-(define *ba10f_out* "ba10f_out.txt")
+(define *ba10f_out* "data\\ba10f_out.txt")
 (define *pseudo-count* #t)
 ;;--*-- output tables --*--
 (define *transition* '()) ;; key pair of string,value real number
@@ -30,26 +30,26 @@
 (define (ros_ba10f . n)
   (let* ((data (read-file*
 		(if (null? n)
-		    "rosalind_ba10f.txt"
-		    (format "rs_ba10f~a.txt" (car n)))))
+		    "data\\rosalind_ba10f.txt"
+		    (format "data\\rs_ba10f~a.txt" (car n)))))
 	 (1st-line  (string-tokenize (car data)))
 	 (theta (string->number (car 1st-line)))   ;; threshold
 	 (delta (string->number (cadr 1st-line)))  ;; pseudo count ratio
-	 (sigma (map (lambda(x)(string-ref x 0))  ;;���ϵ���
+	 (sigma (map (lambda(x)(string-ref x 0))  ;;鐃緒申鐃熟居申鐃緒申
 		     (regexp-match* #rx"[A-Za-z]" (third data))))
-	 (sigmas (cons #\- sigma))  ;;�����ϵ���+GAP
-	 (sym-cnt (length sigma))   ;;���μ���
+	 (sigmas (cons #\- sigma))  ;;鐃緒申鐃緒申鐃熟居申鐃緒申+GAP
+	 (sym-cnt (length sigma))   ;;鐃緒申鐃塾種申鐃緒申
 	 (aligns (map (lambda(y)
 			(map (lambda(x)(string-ref x 0))
 			     (regexp-match* #rx"[A-Za-z\\-]" y)))
 		      (drop data 4)))
-	 (seqlen (length (car aligns)))    	 ;;�������󥹤�Ĺ��
-	 (seqcnt (length aligns))              	 ;;�������󥹤ο�
+	 (seqlen (length (car aligns)))    	 ;;鐃緒申鐃緒申鐃緒申鐃藷スわ申長鐃緒申
+	 (seqcnt (length aligns))              	 ;;鐃緒申鐃緒申鐃緒申鐃藷スの随申
 	 (tr-align (transpose aligns))	         ;;
 	 (st '())
 	 (states '())
-	 (all-state '()) ;;���Ƥ�state (include S,E,I0)
-	 (main-count 0)  ;;M(main,match)�ο�
+	 (all-state '()) ;;鐃緒申鐃銃わ申state (include S,E,I0)
+	 (main-count 0)  ;;M(main,match)鐃塾随申
 	 (step-alist '())
 	 )
     #|
@@ -57,7 +57,7 @@
     (displayln (format "thres=~a" theta))
     (displayln (format "pseudo c=~a" delta))
     |#
-  (include "init_ba10e.ss")
+(include "init_ba10e.ss")
 
     (set! step-alist (zip states tr-align))
     ;(for-each displayln step-alist)
@@ -76,7 +76,7 @@
 	    (i0s (format "I~a" step))
 	    )
 	
-	(if (not i0bin) ;;I���ʤ�step
+	(if (not i0bin) ;;I鐃緒申鐃淑わ申step
 	    (let ((trans-MM (transpose (list m0bin m1bin))))
 	      ;;(displayln (format "\nM-M~a" trans-MM))
 	      (set-trans m0s m1s (div* (count-trans-pair '(1 1) trans-MM)
@@ -92,7 +92,7 @@
 				       (count-trans-pair '(0 2) trans-MM)))
 	      
 	      )
-	    (begin ;;I��¸�ߤ���step
+	    (begin ;;I鐃緒申存鐃淳わ申鐃緒申step
 	      (let ((trans-MIM (transpose (list m0bin (list-ior i0bin) m1bin))))
 		;(displayln (format "\x1b[42mMIM=~a\x1b[0m" trans-MIM))
 		
@@ -108,7 +108,7 @@
 					 (count-trans-pair '(0 2 2) trans-MIM)))
 		(set-trans d0s d1s (div* (count-trans-pair '(0 0 0) trans-MIM)
 					 (count-trans-pair '(0 2 2) trans-MIM)))
-		(let* ((i-cnt (all-1-count i0bin)) ;; I-n��gap�ʳ���ʸ����
+		(let* ((i-cnt (all-1-count i0bin)) ;; I-n鐃緒申gap鐃淑鰹申鐃緒申文鐃緒申鐃緒申
 		       (i-line (apply + (list-ior i0bin)))
 		       (self-ratio (* 1.0 (/ (- i-cnt i-line) i-cnt)))
 		       (next-ratio (- 1.0 self-ratio))
@@ -130,18 +130,18 @@
 				      (count-trans-pair '(2 1 2) trans-MIM))))
 	       ))))))
 	      
-    ;; 2��0,1�ɤ����Ȥ�����
+    ;; 2鐃緒申0,1鐃宿わ申鐃緒申鐃夙わ申鐃緒申鐃緒申
     
     (define (make-prof-A step m0 i0 m1)
       (let ((m0bin (if (empty? m0)
 		       (make-list seqcnt 1)
-		       (chatlist->binlist (cadar m0))))
+		       (charlist->binlist (cadar m0))))
 	    (i0bin (if (empty? i0)
 		       #f
-		       (map (lambda(x)(chatlist->binlist (cadr x))) i0)))
+		       (map (lambda(x)(charlist->binlist (cadr x))) i0)))
 	    (m1bin (if (empty? m1)
 		       (make-list seqcnt 1)
-		       (chatlist->binlist (cadar m1)))))
+		       (charlist->binlist (cadar m1)))))
 	(make-profile-B step m0bin i0bin m1bin)
 	))
 	      
@@ -184,7 +184,7 @@
     (define (set-emit state step charlist)
       ;(displayln (format "~a~a:~a" state step (map round3 (normalize-num (sym-count-m charlist sigma)))))
       (hash-set! *emit* (format "~a~a" state step)  (normalize-num (sym-count-m charlist sigma))))
-;;�����ϵ�����Ʊ����Ψ��      
+;;鐃緒申鐃緒申鐃熟居申鐃緒申鐃緒申同鐃緒申鐃緒申率鐃緒申      
     (define (set-emit-eq state step cnt)
       (hash-set! *emit* (format "~a~a" state step)(make-list cnt (/ 1.0 cnt))))
       
@@ -205,7 +205,7 @@
     (when *pseudo-count*
 	  (emit-pseudo-count))
 
-    ;;����J������ɽ������������P����s������������o�����ͤ񎿎�������������B
+    ;;鐃緒申鐃緒申J鐃緒申鐃緒申鐃緒申表鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申P鐃緒申鐃緒申s鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申o鐃緒申鐃緒申鐃粛ゑｿ��申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申B
     
     (call-with-output-file *ba10f_out*
       (lambda(out)
@@ -230,7 +230,7 @@
       "M"   
       "I"))
 ;;
-;; MDI����estate�������񎿎������Ԥ񎿎�������������B
+;; MDI鐃緒申鐃緒申estate鐃緒申鐃緒申鐃緒申鐃書ｿ��申鐃緒申鐃緒申鐃峻ゑｿ��申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申B
 ;;
 
 (define (number-states states)
@@ -245,19 +245,19 @@
 	    (number-states0 (cdr states) (+ num 1) (cons (+ num 1) acc))))))
 
 
-;; GAP=>0 ���������������������ȳ���������1�������Ѵ񎿎�
-(define (chatlist->binlist charlist)
+;; GAP=>0 鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃夙鰹申鐃緒申鐃緒申鐃緒申鐃緒申1鐃緒申鐃緒申鐃緒申鐃術奇ｿ��申
+(define (charlist->binlist charlist)
  (map (lambda(c)(if (equal? #\- c) 0 1)) charlist))
 
 (define (all-nogap-count charlistlist)
-  (apply + (append-map chatlist->binlist charlistlist)))
+  (apply + (append-map charlist->binlist charlistlist)))
 (define (all-1-count binlistlist)
   (apply + (apply append binlistlist)))
   
 (define (count1 binlist)
   (apply + binlist))
 
-;; bit������������]
+;; bit鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申鐃緒申]
 (define (inv-list binlist)
   (map (lambda(x)(- 1 x)) binlist)) 
 
@@ -281,10 +281,10 @@
 
 ;;--*-- test data --*--
 (define xx '((1 1)(1 1)(1 1)(1 0)(1 0)(0 1)(0 1)(0 1)(0 0)))
-;; ������0�ʤ����̤⥼���ˤ���
+;; 鐃緒申鐃緒申鐃緒申0鐃淑わ申鐃緒申鐃縮もゼ鐃緒申鐃祝わ申鐃緒申
 (define (div* x y)
   (if (= y 0)
       0
       (* 1.0 (/ x y))))
 
-(ros_ba10f 13)
+;;(ros_ba10f 13)
