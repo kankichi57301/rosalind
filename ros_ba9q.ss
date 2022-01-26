@@ -1,7 +1,7 @@
 #lang racket
 ;; rosalind
 ;; 
-;; [BA9Q] 2022/01
+;; [BA9Q] 2022/01/25 AC
 (require srfi/1)
 (require srfi/13)
 (require "readfileA.ss")
